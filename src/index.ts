@@ -2,7 +2,7 @@ import {Node, Parent} from 'unist';
 import {Attacher, Transformer} from 'unified';
 import visit = require('unist-util-visit');
 
-import {parse, canParseLanguage} from './parse';
+import {Grammars, MultiLanguageParser} from './parse';
 
 interface MDASTCode extends Node {
   lang?: string;
@@ -29,14 +29,31 @@ interface TreeSitterData {
   hChildren?: HastElement[];
 }
 
-const attacher: Attacher = () =>  {
+type Options = {
+  /**
+   * Mapping from language keys to grammars to use for parsing
+   */
+  grammars: Grammars;
+};
+
+function isOptions(value: any): value is Options {
+  return value && !!(value as Options).grammars;
+}
+
+const attacher: Attacher = (options) =>  {
+  if (!isOptions(options)) {
+    throw new Error('Missing `grammars` in options');
+  }
+
+  const parser = new MultiLanguageParser(options.grammars);
+
   const transformer: Transformer = (tree, _file) => {
     visit<MDASTCode>(tree, 'code', node => {
       console.log(node);
       const lang = node.lang;
 
-      if (lang && canParseLanguage(lang)) {
-        const parsed = parse(lang, node.value);
+      if (lang && parser.canParseLanguage(lang)) {
+        const parsed = parser.parse(lang, node.value);
         console.log(parsed.rootNode.toString());
       }
 

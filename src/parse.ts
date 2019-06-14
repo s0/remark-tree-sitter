@@ -1,37 +1,44 @@
 import * as Parser from 'tree-sitter';
-import * as javascript from 'tree-sitter-javascript';
 
 type Grammar = any;
 
 /**
- * Mapping from language keys to grammars to use for those languages
+ * Mapping from language keys to grammars to use for parsing
  */
-const LANGUAGES = {
-  js: javascript,
-  javascript: javascript
-};
+export type Grammars = {[id: string]: Grammar};
 
-type Language = keyof typeof LANGUAGES;
+export class MultiLanguageParser {
 
-/**
- * Map from grammars to active parsers available to use
- * (we map grammars instead of languages due to the many-to-one mapping of Language to grammars)
- */
-const parsers = new Map<Grammar, Parser>();
+  /**
+   * Mapping from language keys to grammars to use for those languages
+   */
+  private readonly grammars: Grammars;
 
-/**
- * Return true if we can parse this language
- */
-export function canParseLanguage(language: string): language is Language {
-  return !!LANGUAGES[language];
-}
+  /**
+   * Map from grammars to active parsers available to use
+   * (we map grammars instead of languages due to the many-to-one mapping of Language to grammars)
+   */
+  private readonly parsers = new Map<Grammar, Parser>();
 
-export function parse(language: Language, code: string) {
-  const grammar = LANGUAGES[language];
-  let parser = parsers.get(grammar);
-  if (!parser) {
-    parsers.set(grammar, parser = new Parser());
-    parser.setLanguage(LANGUAGES[language]);
+  constructor(grammars: Grammars) {
+    this.grammars = grammars;
   }
-  return parser.parse(code);
+
+  /**
+   * Return true if we can parse this language
+   */
+  public canParseLanguage(language: string): boolean {
+    return !!this.grammars[language];
+  }
+
+  public parse(language: string, code: string) {
+    const grammar = this.grammars[language];
+    if (!grammar) throw new Error('invalid language');
+    let parser = this.parsers.get(grammar);
+    if (!parser) {
+      this.parsers.set(grammar, parser = new Parser());
+      parser.setLanguage(grammar);
+    }
+    return parser.parse(code);
+  }
 }

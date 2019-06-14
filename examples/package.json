@@ -19,6 +19,7 @@
     "rehype-stringify": "^6.0.0",
     "remark-parse": "^6.0.3",
     "remark-rehype": "^4.0.0",
+    "tree-sitter-javascript": "^0.15.0",
     "unified": "^7.1.0"
   }
 }

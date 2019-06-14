@@ -4,9 +4,13 @@ import * as treeSitter from 'remark-tree-sitter';
 import * as remark2rehype from 'remark-rehype';
 import * as html from 'rehype-stringify';
 
+import * as js from 'tree-sitter-javascript';
+
 const processor = unified()
   .use(markdown)
-  .use(treeSitter)
+  .use(treeSitter, {
+    grammars: {js, javascript: js}
+  })
   .use(remark2rehype)
   .use(html);
 
