@@ -29,7 +29,7 @@ interface TreeSitterData {
   hChildren?: HastElement[];
 }
 
-type Options = {
+export type Options = {
   /**
    * Mapping from language keys to grammars to use for parsing
    */
@@ -84,5 +84,6 @@ const attacher: Attacher = (options) =>  {
   return transformer;
 };
 
-export = attacher;
+export {attacher, attacher as plugin};
+export default attacher;
 

@@ -8,9 +8,9 @@ import * as js from 'tree-sitter-javascript';
 
 const processor = unified()
   .use(markdown)
-  .use(treeSitter, {
+  .use(treeSitter.plugin, {
     grammars: {js, javascript: js}
-  })
+  } as treeSitter.Options)
   .use(remark2rehype)
   .use(html);
 
