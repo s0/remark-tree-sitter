@@ -1,29 +1,34 @@
 import * as unified from 'unified';
 import * as markdown from 'remark-parse';
+import * as treeSitter from 'remark-tree-sitter';
 import * as remark2rehype from 'remark-rehype';
 import * as html from 'rehype-stringify';
 
 const processor = unified()
   .use(markdown)
+  .use(treeSitter)
   .use(remark2rehype)
   .use(html);
 
 const example = `
 # Hello World
 
-## Table of Content
-
-## Install
-
 A **example**.
 
-## Use
+\`\`\`\`\`my-language
+---
+foo: bar
+---
+This is a code snippet
+\`\`\`\`\`
 
-More \`text\`.
+\`\`\`
+---
+foo: bar
+---
+This is a code snippet
+\`\`\`
 
-## License
-
-MIT
 `;
 
 processor.process(example, (err, file) => {

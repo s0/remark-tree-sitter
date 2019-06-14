@@ -2,7 +2,6 @@
     "compilerOptions": {
         "target": "es6",
         "module": "commonjs",
-        "jsx": "react",
         "isolatedModules": false,
         "experimentalDecorators": false,
         "declaration": true,

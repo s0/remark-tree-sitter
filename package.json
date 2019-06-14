@@ -1,5 +1,5 @@
 {
-  "name": "@samlanning/remark-tree-sitter",
+  "name": "remark-tree-sitter",
   "version": "0.0.1",
   "description": "A remark + rehype plugin using tree-sitter to syntax-highlight code snippets",
   "license": "MIT",
@@ -22,9 +22,13 @@
     "gulp-typescript": "^5.0.0",
     "run-sequence": "^1.2.2",
     "tslint": "^5.9.1",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.2",
+    "unified": "^7.1.0"
   },
   "scripts": {
     "build": "gulp"
+  },
+  "dependencies": {
+    "unist-util-visit": "^1.4.1"
   }
 }
