@@ -2,9 +2,12 @@ import {Node, Parent} from 'unist';
 import {Attacher, Transformer} from 'unified';
 import visit = require('unist-util-visit');
 
+import {parse, canParseLanguage} from './parse';
+
 interface MDASTCode extends Node {
   lang?: string;
   meta: null | string;
+  value: string;
 }
 
 interface HastParent extends Parent {
@@ -29,7 +32,13 @@ interface TreeSitterData {
 const attacher: Attacher = () =>  {
   const transformer: Transformer = (tree, _file) => {
     visit<MDASTCode>(tree, 'code', node => {
+      console.log(node);
       const lang = node.lang;
+
+      if (lang && canParseLanguage(lang)) {
+        const parsed = parse(lang, node.value);
+        console.log(parsed.rootNode.toString());
+      }
 
       // Convert to Tree-Sitter Node
       node.type = 'tree-sitter';

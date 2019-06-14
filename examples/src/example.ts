@@ -29,6 +29,10 @@ foo: bar
 This is a code snippet
 \`\`\`
 
+\`\`\`\`\`javascript
+let x = 1; console.log(x);
+\`\`\`\`\`
+
 `;
 
 processor.process(example, (err, file) => {
