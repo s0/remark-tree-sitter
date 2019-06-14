@@ -1,7 +1,7 @@
 {
-  "name": "@synesthesia-project/core",
+  "name": "@samlanning/remark-tree-sitter",
   "version": "0.0.1",
-  "description": "Core synesthesia libraries, type definitions & protocols",
+  "description": "A remark + rehype plugin using tree-sitter to syntax-highlight code snippets",
   "license": "MIT",
   "main": "index.js",
   "types": "index.d.js",
