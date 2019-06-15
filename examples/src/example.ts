@@ -5,52 +5,49 @@ import * as html from 'rehype-stringify';
 
 import * as treeSitter from 'remark-tree-sitter';
 
-(async () => {
+const processor = unified()
+  .use(markdown)
+  .use(treeSitter.plugin, {
+    grammarPackages: ['language-javascript'],
+    classWhitelist: ['storage', 'numeric']
+  } as treeSitter.Options)
+  .use(remark2rehype)
+  .use(html);
 
-  const processor = unified()
-    .use(markdown)
-    .use(treeSitter.plugin, {
-      grammarPackages: ['language-javascript'],
-      classWhitelist: ['storage', 'numeric']
-    } as treeSitter.Options)
-    .use(remark2rehype)
-    .use(html);
+const example = `
+# Hello World
 
-  const example = `
-  # Hello World
+A **example**.
 
-  A **example**.
+\`\`\`\`\`my-language
+---
+foo: bar
+---
+This is a code snippet
+\`\`\`\`\`
 
-  \`\`\`\`\`my-language
-  ---
-  foo: bar
-  ---
-  This is a code snippet
-  \`\`\`\`\`
+\`\`\`
+---
+foo: bar
+---
+This is a code snippet
+\`\`\`
 
-  \`\`\`
-  ---
-  foo: bar
-  ---
-  This is a code snippet
-  \`\`\`
+\`\`\`\`\`javascript
+function foo() {
+  return 1;
+}
+\`\`\`\`\`
 
-  \`\`\`\`\`javascript
-  function foo() {
-    return 1;
-  }
-  \`\`\`\`\`
+\`\`\`\`\`js
+function foo() {
+  return 1;
+}
+\`\`\`\`\`
 
-  \`\`\`\`\`js
-  function foo() {
-    return 1;
-  }
-  \`\`\`\`\`
+`;
 
-  `;
-
-  processor.process(example, (err, file) => {
-    if (err) console.error(err);
-    console.log(file.contents);
-  });
-})();
+processor.process(example, (err, file) => {
+  if (err) console.error(err);
+  console.log(file.contents);
+});
