@@ -29,10 +29,8 @@
     "build": "gulp"
   },
   "dependencies": {
-    "@atom-languages/language-typescript": "^0.5.0",
-    "language-javascript": "^0.128.0-0",
     "tree-sitter": "^0.15.5",
-    "tree-sitter-hast": "^0.0.2",
+    "tree-sitter-hast": "^1.1.0",
     "unist-util-visit": "^1.4.1"
   }
 }

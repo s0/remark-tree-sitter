@@ -1,24 +1,17 @@
 import * as unified from 'unified';
 import * as markdown from 'remark-parse';
-import * as treeSitter from 'remark-tree-sitter';
 import * as remark2rehype from 'remark-rehype';
 import * as html from 'rehype-stringify';
 
-import {loadLanguagesFromPackage} from 'tree-sitter-hast';
+import * as treeSitter from 'remark-tree-sitter';
 
 (async () => {
-  const langs = await loadLanguagesFromPackage('@atom-languages/language-typescript');
-
-  console.log(langs.keys());
-  const js = langs.get('typescript');
-  if (!js) throw new Error('no js');
-
-  console.log(js);
 
   const processor = unified()
     .use(markdown)
     .use(treeSitter.plugin, {
-      grammars: {js, javascript: js}
+      grammarPackages: ['language-javascript'],
+      classWhitelist: ['storage', 'numeric']
     } as treeSitter.Options)
     .use(remark2rehype)
     .use(html);
@@ -43,6 +36,12 @@ import {loadLanguagesFromPackage} from 'tree-sitter-hast';
   \`\`\`
 
   \`\`\`\`\`javascript
+  function foo() {
+    return 1;
+  }
+  \`\`\`\`\`
+
+  \`\`\`\`\`js
   function foo() {
     return 1;
   }

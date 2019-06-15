@@ -30,7 +30,7 @@ export class MultiLanguageParser {
     return !!this.grammars[language];
   }
 
-  public parse(language: string, code: string) {
+  public getParser(language: string) {
     const grammar = this.grammars[language];
     if (!grammar) throw new Error('invalid language');
     let parser = this.parsers.get(grammar);
@@ -38,7 +38,7 @@ export class MultiLanguageParser {
       this.parsers.set(grammar, parser = new Parser());
       parser.setLanguage(grammar.grammar);
     }
-    return parser.parse(code);
+    return parser;
   }
 
   public getScopeMappings(language: string) {
