@@ -16,6 +16,8 @@
     "run": "node build/example.js"
   },
   "dependencies": {
+    "@atom-languages/language-typescript": "^0.5.0",
+    "language-javascript": "^0.128.0-0",
     "rehype-stringify": "^6.0.0",
     "remark-parse": "^6.0.3",
     "remark-rehype": "^4.0.0",

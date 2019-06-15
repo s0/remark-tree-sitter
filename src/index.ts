@@ -1,6 +1,9 @@
-import {Node, Parent} from 'unist';
+import {Node} from 'unist';
 import {Attacher, Transformer} from 'unified';
+import * as treeSitterHast from 'tree-sitter-hast';
 import visit = require('unist-util-visit');
+
+import {Element, Text} from 'tree-sitter-hast/hast';
 
 import {Grammars, MultiLanguageParser} from './parse';
 
@@ -10,23 +13,13 @@ interface MDASTCode extends Node {
   value: string;
 }
 
-interface HastParent extends Parent {
-  children: HastElement[];
-}
-
-interface HastElement extends HastParent {
-  type: 'element';
-  tagName: string;
-  properties?: unknown;
-}
-
 interface TreeSitterData {
   [id: string]: unknown;
   hName: 'div';
   hProperties: {
     className: string[];
   };
-  hChildren?: HastElement[];
+  hChildren?: (Element | Text)[];
 }
 
 export type Options = {
@@ -52,30 +45,36 @@ const attacher: Attacher = (options) =>  {
       console.log(node);
       const lang = node.lang;
 
-      if (lang && parser.canParseLanguage(lang)) {
-        const parsed = parser.parse(lang, node.value);
-        console.log(parsed.rootNode.toString());
-      }
 
-      // Convert to Tree-Sitter Node
-      node.type = 'tree-sitter';
-      const data: TreeSitterData = {
-        hName: 'div',
-        hProperties: {
-          className: [
-            'tree-sitter',
-            ...(lang ? [`language-${lang}`] : [])
+      if (lang && parser.canParseLanguage(lang)) {
+        const tree = parser.parse(lang, node.value);
+        console.log(tree.rootNode.toString());
+
+        // Parse & Highlight
+        const highlighted = treeSitterHast.highlightTree(parser.getScopeMappings(lang), node.value, tree);
+
+        // Convert to Tree-Sitter Node
+        node.type = 'tree-sitter';
+        const data: TreeSitterData = {
+          hName: 'div',
+          hProperties: {
+            className: [
+              'tree-sitter',
+              ...(lang ? [`language-${lang}`] : [])
+            ]
+          },
+          hChildren: [
+            {
+              type: 'element',
+              tagName: 'pre',
+              children: [
+                highlighted
+              ]
+            }
           ]
-        },
-        hChildren: [
-          {
-            type: 'element',
-            tagName: 'pre',
-            children: []
-          }
-        ]
-      };
-      node.data = data;
+        };
+        node.data = data;
+      }
     });
 
     return tree;

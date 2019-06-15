@@ -4,42 +4,54 @@ import * as treeSitter from 'remark-tree-sitter';
 import * as remark2rehype from 'remark-rehype';
 import * as html from 'rehype-stringify';
 
-import * as js from 'tree-sitter-javascript';
+import {loadLanguagesFromPackage} from 'tree-sitter-hast';
 
-const processor = unified()
-  .use(markdown)
-  .use(treeSitter.plugin, {
-    grammars: {js, javascript: js}
-  } as treeSitter.Options)
-  .use(remark2rehype)
-  .use(html);
+(async () => {
+  const langs = await loadLanguagesFromPackage('@atom-languages/language-typescript');
 
-const example = `
-# Hello World
+  console.log(langs.keys());
+  const js = langs.get('typescript');
+  if (!js) throw new Error('no js');
 
-A **example**.
+  console.log(js);
 
-\`\`\`\`\`my-language
----
-foo: bar
----
-This is a code snippet
-\`\`\`\`\`
+  const processor = unified()
+    .use(markdown)
+    .use(treeSitter.plugin, {
+      grammars: {js, javascript: js}
+    } as treeSitter.Options)
+    .use(remark2rehype)
+    .use(html);
 
-\`\`\`
----
-foo: bar
----
-This is a code snippet
-\`\`\`
+  const example = `
+  # Hello World
 
-\`\`\`\`\`javascript
-let x = 1; console.log(x);
-\`\`\`\`\`
+  A **example**.
 
-`;
+  \`\`\`\`\`my-language
+  ---
+  foo: bar
+  ---
+  This is a code snippet
+  \`\`\`\`\`
 
-processor.process(example, (err, file) => {
-  if (err) console.error(err);
-  console.log(file.contents);
-});
+  \`\`\`
+  ---
+  foo: bar
+  ---
+  This is a code snippet
+  \`\`\`
+
+  \`\`\`\`\`javascript
+  function foo() {
+    return 1;
+  }
+  \`\`\`\`\`
+
+  `;
+
+  processor.process(example, (err, file) => {
+    if (err) console.error(err);
+    console.log(file.contents);
+  });
+})();
