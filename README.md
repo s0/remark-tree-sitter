@@ -6,5 +6,4 @@ Highlight code in Markdown files using [tree-sitter](https://github.com/tree-sit
 
 TODO:
 
-* frontmatter parser
-* plugins / extensibility (e.g. footer with links to console)
+* Add unit tests for `grammars` option
