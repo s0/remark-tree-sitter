@@ -27,7 +27,8 @@
     "unified": "^7.1.0"
   },
   "scripts": {
-    "build": "gulp"
+    "build": "gulp",
+    "build-and-test": "gulp; yarn --cwd tests run test"
   },
   "dependencies": {
     "tree-sitter": "^0.15.5",
