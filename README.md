@@ -42,25 +42,21 @@ and can be run directly from there.
 It uses `@atom-languages/language-typescript` to provide the TypeScript grammar and 
 
 ```
-npm install to-vfile vfile-reporter unified remark-parse remark-tree-sitter remark-rehype rehype-stringify @atom-languages/language-typescript
+npm install to-vfile vfile-reporter remark remark-tree-sitter remark-html @atom-languages/language-typescript
 ```
 
 [`examples/example.js`](examples/example.js)
 ```js
 const vfile = require('to-vfile')
 const report = require('vfile-reporter')
-const unified = require('unified')
-const markdown = require('remark-parse')
+const remark = require('remark')
 const treeSitter = require('remark-tree-sitter')
-const remark2rehype = require('remark-rehype')
-const html = require('rehype-stringify')
+const html = require('remark-html')
 
-unified()
-  .use(markdown)
+remark()
   .use(treeSitter, {
     grammarPackages: ['@atom-languages/language-typescript']
   })
-  .use(remark2rehype)
   .use(html)
   .process(vfile.readSync('example.md'), (err, file) => {
     console.error(report(err || file))
@@ -102,9 +98,7 @@ An array of all [Atom language packages](#atom-language-packages) that should be
 **Example:**
 
 ```ts
-unified()
-  .use(markdown)
-  .use(treeSitter, {
+remark().use(treeSitter, {
     grammarPackages: ['@atom-languages/language-typescript']
   })
 ```
@@ -130,10 +124,10 @@ Anything specified here will overwrite the languages loaded by [`options.grammar
 
 **Example:**
 
+See a working example at [`examples/example-grammers.js`](examples/example-grammers.js).
+
 ```ts
-unified()
-  .use(markdown)
-  .use(treeSitter, {
+remark().use(treeSitter, {
     grammars: {
       typescript: {
         grammar: typescriptGrammar,
@@ -173,9 +167,7 @@ To do this, you can pass in a whitelist of classes that you actually care about.
 **Example:** The following configuration...
 
 ```ts
-unified()
-  .use(markdown)
-  .use(treeSitter, {
+remark().use(treeSitter, {
     grammarPackages: ['@atom-languages/language-typescript'],
     classWhitelist: ['storage', 'numeric']
   })

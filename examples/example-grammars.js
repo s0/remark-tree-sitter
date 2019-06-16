@@ -1,17 +1,14 @@
 const vfile = require('to-vfile')
 const report = require('vfile-reporter')
-const unified = require('unified')
-const markdown = require('remark-parse')
+const remark = require('remark')
 const treeSitter = require('remark-tree-sitter')
-const remark2rehype = require('remark-rehype')
-const html = require('rehype-stringify')
+const html = require('remark-html')
 
 const loadLanguages = require('tree-sitter-hast').loadLanguagesFromPackage;
 
 loadLanguages('@atom-languages/language-typescript').then(languages => {
   const language = languages.get('typescript');
-  unified()
-    .use(markdown)
+  remark()
     .use(treeSitter, {
       grammars: {
         typescript: {
@@ -20,11 +17,9 @@ loadLanguages('@atom-languages/language-typescript').then(languages => {
         }
       }
     })
-    .use(remark2rehype)
     .use(html)
     .process(vfile.readSync('example.md'), (err, file) => {
       console.error(report(err || file))
       console.log(String(file))
     })
 });
-
