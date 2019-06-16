@@ -4,7 +4,7 @@
     "rehype-stringify": "^6.0.0",
     "remark-parse": "^6.0.3",
     "remark-rehype": "^4.0.0",
-    "remark-tree-sitter": "^0.0.1",
+    "remark-tree-sitter": "^1.0.0",
     "to-vfile": "^6.0.0",
     "unified": "^7.1.0",
     "vfile-reporter": "^6.0.0"
