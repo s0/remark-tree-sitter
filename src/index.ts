@@ -3,6 +3,7 @@ import {Attacher, Transformer} from 'unified';
 import * as treeSitterHast from 'tree-sitter-hast';
 import visit = require('unist-util-visit');
 
+import {validateOptions} from './options';
 import {Grammars, MultiLanguageParser} from './parse';
 
 interface MDASTCode extends Node {
@@ -11,34 +12,8 @@ interface MDASTCode extends Node {
   value: string;
 }
 
-type Options = {
-  /**
-   * Mapping from language keys to prepared langauges to use for parsing and highlighting
-   */
-  grammars?: Grammars;
-
-  /**
-   * List of APM language packages to load the grammars from
-   */
-  grammarPackages?: string[];
-  /**
-   * If specified, only the classes in the given whitelist will be used and output.
-   *
-   * Use this to reduce the output when only certain classes are styled.
-   */
-  classWhitelist?: string[];
-};
-
-function isOptions(value: any): value is Options {
-  if (!value)
-    throw new Error('Missing options');
-  if (!!(value as Options).grammars && !!(value as Options).grammarPackages)
-    throw new Error('grammars or grammarPackages must be specified in options');
-  return true;
-}
-
 const attacher: Attacher = (options) =>  {
-  if (!isOptions(options))
+  if (!validateOptions(options))
     throw new Error('Invalid options');
 
   // Load required packages
@@ -92,6 +67,8 @@ const attacher: Attacher = (options) =>  {
 
   return transformer;
 };
+
+(attacher as any).validateOptions = validateOptions;
 
 export = attacher;
 
