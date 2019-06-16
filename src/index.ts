@@ -11,7 +11,7 @@ interface MDASTCode extends Node {
   value: string;
 }
 
-export type Options = {
+type Options = {
   /**
    * Mapping from language keys to prepared langauges to use for parsing and highlighting
    */
@@ -93,6 +93,5 @@ const attacher: Attacher = (options) =>  {
   return transformer;
 };
 
-export {attacher, attacher as plugin};
-export default attacher;
+export = attacher;
 

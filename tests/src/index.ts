@@ -34,7 +34,7 @@ describe('main tests', () => {
 
       const processor = unified()
         .use(markdown)
-        .use(treeSitter.plugin, options)
+        .use(treeSitter, options)
         .use(remark2rehype)
         .use(html);
 

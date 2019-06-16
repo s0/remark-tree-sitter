@@ -8,7 +8,7 @@ const html = require('rehype-stringify')
 
 unified()
   .use(markdown)
-  .use(treeSitter.plugin, {
+  .use(treeSitter, {
     grammarPackages: ['@atom-languages/language-typescript']
   })
   .use(remark2rehype)

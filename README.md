@@ -4,6 +4,12 @@
 
 Highlight code in Markdown files using [tree-sitter](https://github.com/tree-sitter/tree-sitter) and [remark](https://github.com/remarkjs/remark). Powered by [tree-sitter-hast](https://github.com/samlanning/tree-sitter-hast).
 
+## Usage
+
+```
+npm install to-vfile vfile-reporter unified remark-parse remark-tree-sitter remark-rehype rehype-stringify @atom-languages/language-typescript
+```
+
 TODO:
 
 * Add unit tests for `grammars` option
