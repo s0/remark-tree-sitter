@@ -124,7 +124,7 @@ Anything specified here will overwrite the languages loaded by [`options.grammar
 
 **Example:**
 
-See a working example at [`examples/example-grammers.js`](examples/example-grammers.js).
+See a working example at [`examples/example-grammars.js`](examples/example-grammars.js).
 
 ```ts
 remark().use(treeSitter, {
