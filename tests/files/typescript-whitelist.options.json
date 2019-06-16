@@ -1,0 +1,4 @@
+{
+  "grammarPackages": ["@atom-languages/language-typescript"],
+  "classWhitelist": ["storage", "numeric"]
+}

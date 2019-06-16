@@ -1,0 +1,28 @@
+{
+  "description": "Example scripts using remark-tree-sitter",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-sourcemaps": "1.6.0",
+    "gulp-tslint": "^8.1.3",
+    "gulp-typescript": "^5.0.0",
+    "run-sequence": "^1.2.2",
+    "tslint": "^5.9.1",
+    "typescript": "^3.5.2"
+  },
+  "scripts": {
+    "auto-install": "yarn install; git checkout node_modules",
+    "test": "gulp; mocha --opts mocha.opts",
+    "test-fix": "TEST_FIX=true mocha --opts mocha.opts"
+  },
+  "dependencies": {
+    "@atom-languages/language-typescript": "^0.5.0",
+    "language-javascript": "^0.128.0-0",
+    "mocha": "^6.1.4",
+    "rehype-stringify": "^6.0.0",
+    "remark-parse": "^6.0.3",
+    "remark-rehype": "^4.0.0"
+  }
+}

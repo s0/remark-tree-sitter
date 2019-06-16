@@ -1,0 +1,3 @@
+{
+  "grammarPackages": ["@atom-languages/language-typescript"]
+}
