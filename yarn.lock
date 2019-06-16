@@ -2881,10 +2881,10 @@ to-through@^2.0.0:
   dependencies:
     through2 "^2.0.3"
 
-tree-sitter-hast@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/tree-sitter-hast/-/tree-sitter-hast-1.1.0.tgz#3fd421102480735e961bf50fe13a7f34527204f5"
-  integrity sha512-f50GuZrX1qKbB9emj4llEWieGM34puXjb2VK2mbXPO527w3PcUpuF4gaz+1oHUP/j7gW+DoBzonzuN0SRmficQ==
+tree-sitter-hast@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/tree-sitter-hast/-/tree-sitter-hast-1.1.1.tgz#e54745280a6383e14679ed6eeb0b99d47852739d"
+  integrity sha512-3dMkIELigKKAkbb8EyJkORMx5BaIw4lXlm6zto0OXIEyBVny4DOVLr7IhwLw2UUMJoBn8201OyDBdqyQcg33qQ==
   dependencies:
     "@types/unist" "^2.0.3"
     highlight-tree-sitter "^1.0.0"

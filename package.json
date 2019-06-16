@@ -2,7 +2,12 @@
   "name": "remark-tree-sitter",
   "version": "1.0.2",
   "description": "Highlight code in Markdown files using tree-sitter and remark",
-  "keywords": ["remark-plugin", "tree-sitter", "remark", "syntax-highlighting"],
+  "keywords": [
+    "remark-plugin",
+    "tree-sitter",
+    "remark",
+    "syntax-highlighting"
+  ],
   "license": "MIT",
   "main": "index.js",
   "types": "index.d.js",
@@ -32,7 +37,7 @@
   },
   "dependencies": {
     "tree-sitter": "^0.15.5",
-    "tree-sitter-hast": "^1.1.0",
+    "tree-sitter-hast": "^1.1.1",
     "unist-util-visit": "^1.4.1"
   }
 }
