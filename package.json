@@ -1,6 +1,6 @@
 {
   "name": "remark-tree-sitter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Highlight code in Markdown files using tree-sitter and remark",
   "keywords": [
     "remark-plugin",
