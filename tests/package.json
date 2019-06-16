@@ -20,8 +20,7 @@
   "dependencies": {
     "@atom-languages/language-typescript": "^0.5.0",
     "mocha": "^6.1.4",
-    "rehype-stringify": "^6.0.0",
-    "remark-parse": "^6.0.3",
-    "remark-rehype": "^4.0.0"
+    "remark": "^10.0.1",
+    "remark-html": "^9.0.0"
   }
 }

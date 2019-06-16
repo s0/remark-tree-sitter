@@ -1,10 +1,8 @@
 import * as assert from 'assert';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as unified from 'unified';
-import * as markdown from 'remark-parse';
-import * as remark2rehype from 'remark-rehype';
-import * as html from 'rehype-stringify';
+import * as remark from 'remark';
+import * as html from 'remark-html';
 
 import * as treeSitter from 'remark-tree-sitter';
 import {promisify} from 'util';
@@ -32,10 +30,8 @@ describe('main tests', () => {
 
       const options = JSON.parse(await readFile(optionsPath, 'utf8'));
 
-      const processor = unified()
-        .use(markdown)
+      const processor = remark()
         .use(treeSitter, options)
-        .use(remark2rehype)
         .use(html);
 
       const markdownSource = await readFile(markdownPath, 'utf8');
