@@ -28,7 +28,7 @@ gulp.task('ts', function () {
 });
 
 gulp.task('copy-package-json', function () {
-    return gulp.src(['package.json']).pipe(gulp.dest('dist'));
+    return gulp.src(['package.json', 'README.md']).pipe(gulp.dest('dist'));
 });
 
 gulp.task('tslint', function() {
