@@ -4,7 +4,7 @@
 
 Highlight code in Markdown files using
 [tree-sitter](https://github.com/tree-sitter/tree-sitter) and
-[remark](https://github.com/remarkjs/remark).
+[remark][].
 Powered by [tree-sitter-hast](https://github.com/samlanning/tree-sitter-hast).
 
 ## Installation
@@ -214,3 +214,9 @@ TODO:
     — [rehype][] plugin to highlight code (via refractor)
 *   [`rehype-shiki`](https://github.com/rsclarke/rehype-shiki)
     — [rehype][] plugin to highlight code with shiki
+
+<!-- Definitions -->
+
+[remark]: https://github.com/remarkjs/remark
+
+[rehype]: https://github.com/rehypejs/rehype
